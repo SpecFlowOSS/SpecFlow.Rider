@@ -1,6 +1,5 @@
 using JetBrains.Diagnostics;
 using JetBrains.ProjectModel;
-using JetBrains.Rd.Impl;
 using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.Psi.Parsing;
 using JetBrains.Text;
@@ -22,6 +21,6 @@ namespace ReSharperPlugin.SpecflowRiderPlugin.Psi
         
         protected override PsiLanguageType PsiLanguageType => GherkinLanguage.Instance.NotNull();
         
-        public override IconId Icon { get; }
+        public override IconId Icon => ReSharperPluginSpecflowRiderPluginThemedIcons.Gherkin.Id;
     }
 }

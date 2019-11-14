@@ -38,9 +38,6 @@ namespace ReSharperPlugin.SpecflowRiderPlugin.SyntaxHighlighting.Rider
             if (tokenType == GherkinTokenTypes.TABLE_CELL)
                 return GherkinHighlightingAttributeIds.TABLE_CELL;
 
-            if (tokenType == GherkinTokenTypes.STEP_PARAMETER_TEXT) //TODO Detect regex parameter like: "param"
-                return GherkinHighlightingAttributeIds.REGEXP_PARAMETER;
-
             if (tokenType == GherkinTokenTypes.PIPE)
                 return GherkinHighlightingAttributeIds.PIPE;
 
