@@ -21,6 +21,6 @@ namespace ReSharperPlugin.SpecflowRiderPlugin.Psi
         
         protected override PsiLanguageType PsiLanguageType => GherkinLanguage.Instance.NotNull();
         
-        public override IconId Icon { get; }
+        public override IconId Icon => ReSharperPluginSpecflowRiderPluginThemedIcons.Gherkin.Id;
     }
 }

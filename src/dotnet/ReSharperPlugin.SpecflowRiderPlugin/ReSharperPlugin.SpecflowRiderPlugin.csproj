@@ -30,10 +30,10 @@
     <Content Include="bin\ReSharperPlugin.SpecflowRiderPlugin\$(Configuration)\ReSharperPlugin.SpecflowRiderPlugin.*" PackagePath="dotFiles" Pack="true" />
   </ItemGroup>
   <!-- TODO: uncomment for xaml icons -->
-  <!--<ItemGroup>-->
-  <!--<Reference Include="System.Xaml" />-->
-  <!--<Reference Include="WindowsBase" />-->
-  <!--</ItemGroup>-->
+  <ItemGroup>
+    <Reference Include="System.Xaml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
   <!--<ItemGroup Condition="'$(OS)' != 'Unix'">-->
   <!--<Reference Include="PresentationCore" />-->
   <!--<Reference Include="PresentationFramework" />-->
@@ -53,5 +53,6 @@
   <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk" />
   <ItemGroup>
     <EmbeddedResource Include="Psi/i18n.json" />
+    <ThemedIconPng Include="Icons/gherkin.png" />
   </ItemGroup>
 </Project>
