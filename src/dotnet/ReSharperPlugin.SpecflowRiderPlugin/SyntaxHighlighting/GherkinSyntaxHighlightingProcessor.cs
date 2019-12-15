@@ -4,7 +4,7 @@ using JetBrains.ReSharper.Psi.Parsing;
 using JetBrains.ReSharper.Psi.Tree;
 using ReSharperPlugin.SpecflowRiderPlugin.Psi;
 
-namespace ReSharperPlugin.SpecflowRiderPlugin.SyntaxHighlighting.Rider
+namespace ReSharperPlugin.SpecflowRiderPlugin.SyntaxHighlighting
 {
     public class GherkinSyntaxHighlightingProcessor : SyntaxHighlightingProcessor
     {

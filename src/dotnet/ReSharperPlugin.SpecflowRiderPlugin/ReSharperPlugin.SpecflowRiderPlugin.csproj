@@ -14,6 +14,7 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.0-preview.2" PrivateAssets="All" />
+    <PackageReference Include="VSSDK.Text.10" Version="10.0.4" />
     <!-- TODO: https://github.com/NuGet/Home/issues/7154 -->
     <PackageReference Include="Wave" Version="$(WaveVersion)" />
   </ItemGroup>
@@ -24,10 +25,19 @@
     <Content Remove="**\Rider\**\*" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="bin\ReSharperPlugin.SpecflowRiderPlugin\$(Configuration)\ReSharperPlugin.SpecflowRiderPlugin.*" PackagePath="dotFiles" Pack="true" />
+    <!-- Format definitions can't compile on Mac/Linux due to missing PresentationCore dependencies -->
+    <Compile Remove="**\*FormatDefinitions.cs" Condition=" '$(OS)' == 'Unix' " />
+    <Compile Remove="**\*.xaml" Condition=" '$(OS)' == 'Unix' " />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bin\$(AssemblyName)\$(Configuration)\$(AssemblyName).dll" PackagePath="dotFiles" Pack="true" />
+    <Content Include="bin\$(AssemblyName)\$(Configuration)\$(AssemblyName).pdb" PackagePath="dotFiles" Pack="true" />
+    <ThemedIconPng Include="Icons\gherkin.png" />
   </ItemGroup>
   <!-- TODO: uncomment for xaml icons -->
   <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System.Xaml" />
     <Reference Include="WindowsBase" />
   </ItemGroup>
@@ -50,6 +60,5 @@
   <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk" />
   <ItemGroup>
     <EmbeddedResource Include="Psi/i18n.json" />
-    <ThemedIconPng Include="Icons/gherkin.png" />
   </ItemGroup>
 </Project>

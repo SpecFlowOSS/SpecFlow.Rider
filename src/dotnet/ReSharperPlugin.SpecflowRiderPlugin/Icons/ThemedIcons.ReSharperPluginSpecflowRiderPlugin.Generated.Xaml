@@ -1,9 +1,0 @@
-<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib">
-    <ImageDrawing AutomationProperties.Name="Gherkin" AutomationProperties.ItemType="-" x:Key="0000">
-        <ToolTipService.ToolTip>
-            <x:Array Type="s:String">
-                <s:String>iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAyklEQVR42qWTwQ3DIAxFc+iVBTJAF8gCWYABeuuJBViAAboAHSALMAALMFSN9CN9uU5SVKQvLIOfkW2m6WTd3k8nmqeRJQGL6CVqSt23XGVLRqBWv+MsQFLZVtgV9sbnOtirLBn+vF+GzXc8A3Z6FAVkzdirEdy1MaARwAFyVYtmAYZkARLaGI2A7pv5jAEFzoCC6hps2B8EKAwIVoEAyQddiHqICgPQ+0pzwNNZv0ZcHHcFOZP/Z5zDLx/KAvXXrSO/ci9sPnyyrA/99x2zm5BZYwAAAABJRU5ErkJggg==</s:String>
-            </x:Array>
-        </ToolTipService.ToolTip>
-    </ImageDrawing>
-</ResourceDictionary>

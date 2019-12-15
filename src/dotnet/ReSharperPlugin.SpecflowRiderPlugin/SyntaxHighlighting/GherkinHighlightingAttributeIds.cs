@@ -9,6 +9,7 @@ using ReSharperPlugin.SpecflowRiderPlugin.SyntaxHighlighting;
     RegisterHighlighter(GherkinHighlightingAttributeIds.KEYWORD,
         GroupId = GherkinHighlightingAttributeIds.GroupID,
         EffectType = EffectType.TEXT,
+        ForegroundColor = "#0000E0",
         FallbackAttributeId = IdeaHighlightingAttributeIds.KEYWORD,
         Layer = HighlighterLayer.SYNTAX),
     RegisterHighlighter(GherkinHighlightingAttributeIds.TEXT,
@@ -25,35 +26,35 @@ using ReSharperPlugin.SpecflowRiderPlugin.SyntaxHighlighting;
         GroupId = GherkinHighlightingAttributeIds.GroupID,
         FallbackAttributeId = IdeaHighlightingAttributeIds.METADATA,
         Layer = HighlighterLayer.SYNTAX),
-    RegisterHighlighter(GherkinHighlightingAttributeIds.REGEXP_PARAMETER,
-        GroupId = GherkinHighlightingAttributeIds.GroupID,
-        FallbackAttributeId = IdeaHighlightingAttributeIds.PARAMETER,
-        Layer = HighlighterLayer.SYNTAX),
-    RegisterHighlighter(GherkinHighlightingAttributeIds.TABLE_CELL,
-        GroupId = GherkinHighlightingAttributeIds.GroupID,
-        FallbackAttributeId = GherkinHighlightingAttributeIds.REGEXP_PARAMETER,
-        Layer = HighlighterLayer.SYNTAX),
-    RegisterHighlighter(GherkinHighlightingAttributeIds.OUTLINE_PARAMETER_SUBSTITUTION,
-        GroupId = GherkinHighlightingAttributeIds.GroupID,
-        FallbackAttributeId = IdeaHighlightingAttributeIds.INSTANCE_FIELD,
-        Layer = HighlighterLayer.SYNTAX),
-    RegisterHighlighter(GherkinHighlightingAttributeIds.TABLE_HEADER_CELL,
-        GroupId = GherkinHighlightingAttributeIds.GroupID,
-        FallbackAttributeId = GherkinHighlightingAttributeIds.OUTLINE_PARAMETER_SUBSTITUTION,
-        Layer = HighlighterLayer.SYNTAX),
-    RegisterHighlighter(GherkinHighlightingAttributeIds.PIPE,
-        GroupId = GherkinHighlightingAttributeIds.GroupID,
-        FallbackAttributeId = GherkinHighlightingAttributeIds.KEYWORD,
-        Layer = HighlighterLayer.SYNTAX),
-    RegisterHighlighter(GherkinHighlightingAttributeIds.PYSTRING,
-        GroupId = GherkinHighlightingAttributeIds.GroupID,
-        FallbackAttributeId = IdeaHighlightingAttributeIds.STRING,
-        Layer = HighlighterLayer.SYNTAX)
+//    RegisterHighlighter(GherkinHighlightingAttributeIds.REGEXP_PARAMETER,
+//        GroupId = GherkinHighlightingAttributeIds.GroupID,
+//        FallbackAttributeId = IdeaHighlightingAttributeIds.PARAMETER,
+//        Layer = HighlighterLayer.SYNTAX),
+//    RegisterHighlighter(GherkinHighlightingAttributeIds.TABLE_CELL,
+//        GroupId = GherkinHighlightingAttributeIds.GroupID,
+//        FallbackAttributeId = GherkinHighlightingAttributeIds.REGEXP_PARAMETER,
+//        Layer = HighlighterLayer.SYNTAX),
+//    RegisterHighlighter(GherkinHighlightingAttributeIds.OUTLINE_PARAMETER_SUBSTITUTION,
+//        GroupId = GherkinHighlightingAttributeIds.GroupID,
+//        FallbackAttributeId = IdeaHighlightingAttributeIds.INSTANCE_FIELD,
+//        Layer = HighlighterLayer.SYNTAX),
+//    RegisterHighlighter(GherkinHighlightingAttributeIds.TABLE_HEADER_CELL,
+//        GroupId = GherkinHighlightingAttributeIds.GroupID,
+//        FallbackAttributeId = GherkinHighlightingAttributeIds.OUTLINE_PARAMETER_SUBSTITUTION,
+//        Layer = HighlighterLayer.SYNTAX),
+//    RegisterHighlighter(GherkinHighlightingAttributeIds.PIPE,
+//        GroupId = GherkinHighlightingAttributeIds.GroupID,
+//        FallbackAttributeId = GherkinHighlightingAttributeIds.KEYWORD,
+//        Layer = HighlighterLayer.SYNTAX),
+//    RegisterHighlighter(GherkinHighlightingAttributeIds.PYSTRING,
+//        GroupId = GherkinHighlightingAttributeIds.GroupID,
+//        FallbackAttributeId = IdeaHighlightingAttributeIds.STRING,
+//        Layer = HighlighterLayer.SYNTAX)
 ]
 
 namespace ReSharperPlugin.SpecflowRiderPlugin.SyntaxHighlighting
 {
-    public class GherkinHighlightingAttributeIds
+    public static class GherkinHighlightingAttributeIds
     {
         // ReSharper disable InconsistentNaming
         public const string GroupID = "ReSharper SpecFlow Highlighters";
@@ -68,13 +69,5 @@ namespace ReSharperPlugin.SpecflowRiderPlugin.SyntaxHighlighting
         public const string REGEXP_PARAMETER = "ReSharper SpecFlow Step Parameter";
         public const string OUTLINE_PARAMETER_SUBSTITUTION = "ReSharper SpecFlow Scenario Outline Parameter";
         // ReSharper restore InconsistentNaming
-    }
-
-    public class SpecFlowHighlighterNamesProvider : PrefixBasedSettingsNamesProvider
-    {
-        public SpecFlowHighlighterNamesProvider()
-            : base("ReSharper SpecFlow", "ReSharper.SpecFlow")
-        {
-        }
     }
 }

@@ -8,7 +8,7 @@ namespace ReSharperPlugin.SpecflowRiderPlugin.Psi
     public class GherkinProjectFileType : KnownProjectFileType
     {
         public new const string Name = "GHERKIN";
-        public const string FEATURE_EXTENSION = ".feature";
+        public const string FEATURE_EXTENSION = ".features";
         
         [CanBeNull]
         [UsedImplicitly]
