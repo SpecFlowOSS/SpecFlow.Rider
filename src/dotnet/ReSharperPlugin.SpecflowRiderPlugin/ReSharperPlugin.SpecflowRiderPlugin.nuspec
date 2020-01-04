@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+    <metadata>
+        <id>ReSharperPlugin.SpecflowRiderPlugin</id>
+        <version>$version$</version>
+        <title>Specflow Support</title>
+        <authors>Valentin Livkin</authors>
+        <owners>Valentin Livkin</owners>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <licenseUrl>https://raw.githubusercontent.com/Settler/resharper-specflow/master/LICENSE</licenseUrl>
+        <projectUrl>https://github.com/Settler/resharper-specflow</projectUrl>
+        <description>Description</description>
+        <copyright>Copyright 2019 Maintainers of SpecflowRiderPlugin</copyright>
+        <tags>resharper plugin</tags>
+        <dependencies>
+            <group targetFramework=".NETFramework4.6.1">
+                <dependency id="Wave" version="192.0.0" exclude="Build,Analyzers" />
+            </group>
+        </dependencies>
+    </metadata>
+    <files>
+        <file src=".\bin\ReSharperPlugin.SpecflowRiderPlugin\$configuration$\ReSharperPlugin.SpecflowRiderPlugin.dll" target="DotFiles" />
+        <file src=".\bin\ReSharperPlugin.SpecflowRiderPlugin\$configuration$\ReSharperPlugin.SpecflowRiderPlugin.pdb" target="DotFiles" />
+    </files>
+</package>

@@ -11,7 +11,7 @@ $ErrorActionPreference = "Stop"
 
 . ".\settings.ps1"
 
-$ChangelogText = ([Regex]::Matches([System.IO.File]::ReadAllText("CHANGELOG.md"), '(?s)(##.+?.+?)(?=##|$)').Captures | Select -First 10) -Join ''
+$ChangelogText = ([Regex]::Matches([System.IO.File]::ReadAllText("$PWD\CHANGELOG.md"), '(?s)(##.+?.+?)(?=##|$)').Captures | Select -First 10) -Join ''
 
 Invoke-Exe $MSBuildPath "/t:Restore;Rebuild;Pack" "$SolutionPath" "/v:minimal" "/p:Configuration=$Configuration" "/p:PackageOutputPath=$OutputDirectory" "/p:PackageVersion=$Version" "/p:PackageReleaseNotes=`"$ChangelogText`""
 $PackageFile = "$OutputDirectory\$PluginId.$Version*.nupkg"

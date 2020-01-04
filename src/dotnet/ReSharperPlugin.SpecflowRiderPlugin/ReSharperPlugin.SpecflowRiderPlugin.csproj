@@ -8,6 +8,7 @@
     <IsPackable>True</IsPackable>
     <DefineConstants>$(DefineConstants);RESHARPER</DefineConstants>
     <IncludeBuildOutput>false</IncludeBuildOutput>
+    <NuspecFile>$(MSBuildThisFileDirectory)$(MSBuildProjectName).nuspec</NuspecFile>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="JetBrains.ReSharper.SDK" Version="$(SdkVersion)">
@@ -32,7 +33,8 @@
   <ItemGroup>
     <Content Include="bin\$(AssemblyName)\$(Configuration)\$(AssemblyName).dll" PackagePath="dotFiles" Pack="true" />
     <Content Include="bin\$(AssemblyName)\$(Configuration)\$(AssemblyName).pdb" PackagePath="dotFiles" Pack="true" />
-    <ThemedIconPng Include="Icons\gherkin.png" />
+    <None Include="Icons\gherkin.png" />
+    <EmbeddedResource Include="Icons\gherkin.ico" />
   </ItemGroup>
   <!-- TODO: uncomment for xaml icons -->
   <ItemGroup>
@@ -61,4 +63,11 @@
   <ItemGroup>
     <EmbeddedResource Include="Psi/i18n.json" />
   </ItemGroup>
+
+  <Target Name="SetNuspecProperties" BeforeTargets="GenerateNuspec">
+    <PropertyGroup>
+      <NuspecProperties>$(NuspecProperties);configuration=$(Configuration)</NuspecProperties>
+      <NuspecProperties>$(NuspecProperties);version=$(PackageVersion)</NuspecProperties>
+    </PropertyGroup>
+  </Target>
 </Project>

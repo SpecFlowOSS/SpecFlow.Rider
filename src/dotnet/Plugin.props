@@ -7,10 +7,10 @@
   
     <Authors>Valentin Livkin</Authors>
     <Copyright>Copyright 2019 Maintainers of SpecflowRiderPlugin</Copyright>
-    <PackageTags>resharper plugin</PackageTags>
+    <PackageTags>resharper specflow gherkin</PackageTags>
   
-    <PackageProjectUrl></PackageProjectUrl>
-    <PackageLicenseUrl></PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/Settler/resharper-specflow</PackageProjectUrl>
+    <PackageLicenseUrl>https://raw.githubusercontent.com/Settler/resharper-specflow/master/LICENSE</PackageLicenseUrl>
     <PackageIconUrl></PackageIconUrl>
   </PropertyGroup>
 </Project>
