@@ -17,6 +17,7 @@ $MSBuildPath = Get-ChildItem "$VisualStudioBaseDirectory\MSBuild\*\Bin\MSBuild.e
 
 $OutputDirectory = "$PSScriptRoot\output"
 $NuGetPath = "$PSScriptRoot\tools\nuget.exe"
+$ReSharperLogsPath = "$PSScriptRoot\logs\ReSharper.log"
 
 Function Invoke-Exe {
     param(

@@ -44,14 +44,12 @@ namespace JetBrains.Rider.Model
     //public fields
     [NotNull] public IViewableProperty<string> MyString => _MyString;
     [NotNull] public IViewableProperty<bool> MyBool => _MyBool;
-    [NotNull] public IViewableProperty<JetBrains.Rider.Model.MyEnum?> MyEnum => _MyEnum;
     [NotNull] public IViewableMap<string, string> Data => _Data;
     [NotNull] public ISignal<JetBrains.Rider.Model.MyStructure> MyStructure => _MyStructure;
     
     //private fields
     [NotNull] private readonly RdProperty<string> _MyString;
     [NotNull] private readonly RdProperty<bool> _MyBool;
-    [NotNull] private readonly RdProperty<JetBrains.Rider.Model.MyEnum?> _MyEnum;
     [NotNull] private readonly RdMap<string, string> _Data;
     [NotNull] private readonly RdSignal<JetBrains.Rider.Model.MyStructure> _MyStructure;
     
@@ -59,30 +57,24 @@ namespace JetBrains.Rider.Model
     private SpecflowRiderPluginModel(
       [NotNull] RdProperty<string> myString,
       [NotNull] RdProperty<bool> myBool,
-      [NotNull] RdProperty<JetBrains.Rider.Model.MyEnum?> myEnum,
       [NotNull] RdMap<string, string> data,
       [NotNull] RdSignal<JetBrains.Rider.Model.MyStructure> myStructure
     )
     {
       if (myString == null) throw new ArgumentNullException("myString");
       if (myBool == null) throw new ArgumentNullException("myBool");
-      if (myEnum == null) throw new ArgumentNullException("myEnum");
       if (data == null) throw new ArgumentNullException("data");
       if (myStructure == null) throw new ArgumentNullException("myStructure");
       
       _MyString = myString;
       _MyBool = myBool;
-      _MyEnum = myEnum;
       _Data = data;
       _MyStructure = myStructure;
       _MyString.OptimizeNested = true;
       _MyBool.OptimizeNested = true;
-      _MyEnum.OptimizeNested = true;
       _Data.OptimizeNested = true;
-      _MyEnum.ValueCanBeNull = true;
       BindableChildren.Add(new KeyValuePair<string, object>("myString", _MyString));
       BindableChildren.Add(new KeyValuePair<string, object>("myBool", _MyBool));
-      BindableChildren.Add(new KeyValuePair<string, object>("myEnum", _MyEnum));
       BindableChildren.Add(new KeyValuePair<string, object>("data", _Data));
       BindableChildren.Add(new KeyValuePair<string, object>("myStructure", _MyStructure));
     }
@@ -91,16 +83,11 @@ namespace JetBrains.Rider.Model
     ) : this (
       new RdProperty<string>(JetBrains.Rd.Impl.Serializers.ReadString, JetBrains.Rd.Impl.Serializers.WriteString),
       new RdProperty<bool>(JetBrains.Rd.Impl.Serializers.ReadBool, JetBrains.Rd.Impl.Serializers.WriteBool),
-      new RdProperty<JetBrains.Rider.Model.MyEnum?>(ReadMyEnumNullable, WriteMyEnumNullable),
       new RdMap<string, string>(JetBrains.Rd.Impl.Serializers.ReadString, JetBrains.Rd.Impl.Serializers.WriteString, JetBrains.Rd.Impl.Serializers.ReadString, JetBrains.Rd.Impl.Serializers.WriteString),
       new RdSignal<JetBrains.Rider.Model.MyStructure>(JetBrains.Rider.Model.MyStructure.Read, JetBrains.Rider.Model.MyStructure.Write)
     ) {}
     //deconstruct trait
     //statics
-    
-    public static CtxReadDelegate<JetBrains.Rider.Model.MyEnum?> ReadMyEnumNullable = new CtxReadDelegate<JetBrains.Rider.Model.MyEnum>(JetBrains.Rd.Impl.Serializers.ReadEnum<JetBrains.Rider.Model.MyEnum>).NullableStruct();
-    
-    public static  CtxWriteDelegate<JetBrains.Rider.Model.MyEnum?> WriteMyEnumNullable = new CtxWriteDelegate<JetBrains.Rider.Model.MyEnum>(JetBrains.Rd.Impl.Serializers.WriteEnum<JetBrains.Rider.Model.MyEnum>).NullableStruct();
     
     protected override long SerializationHash => 652449028105363203L;
     
@@ -125,7 +112,6 @@ namespace JetBrains.Rider.Model
       using (printer.IndentCookie()) {
         printer.Print("myString = "); _MyString.PrintEx(printer); printer.Println();
         printer.Print("myBool = "); _MyBool.PrintEx(printer); printer.Println();
-        printer.Print("myEnum = "); _MyEnum.PrintEx(printer); printer.Println();
         printer.Print("data = "); _Data.PrintEx(printer); printer.Println();
         printer.Print("myStructure = "); _MyStructure.PrintEx(printer); printer.Println();
       }
@@ -151,12 +137,6 @@ namespace JetBrains.Rider.Model
   /// <summary>
   /// <p>Generated from: SpecflowRiderPluginModel.kt:10</p>
   /// </summary>
-  public enum MyEnum {
-    FirstValue,
-    SecondValue
-  }
-  
-  
   /// <summary>
   /// <p>Generated from: SpecflowRiderPluginModel.kt:15</p>
   /// </summary>

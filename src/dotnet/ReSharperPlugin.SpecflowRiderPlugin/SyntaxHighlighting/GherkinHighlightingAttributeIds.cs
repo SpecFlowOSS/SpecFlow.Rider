@@ -9,6 +9,7 @@ namespace ReSharperPlugin.SpecflowRiderPlugin.SyntaxHighlighting
         RegisterHighlighter(KEYWORD,
             GroupId = GroupID,
             EffectType = EffectType.TEXT,
+        ForegroundColor = "#0000E0",
             FallbackAttributeId = IdeaHighlightingAttributeIds.KEYWORD,
             Layer = HighlighterLayer.SYNTAX),
         RegisterHighlighter(TEXT,
@@ -50,7 +51,7 @@ namespace ReSharperPlugin.SpecflowRiderPlugin.SyntaxHighlighting
             FallbackAttributeId = IdeaHighlightingAttributeIds.STRING,
             Layer = HighlighterLayer.SYNTAX)
     ]
-    public class GherkinHighlightingAttributeIds
+    public static class GherkinHighlightingAttributeIds
     {
         // ReSharper disable InconsistentNaming
         public const string GroupID = "ReSharper SpecFlow Highlighters";
@@ -65,13 +66,5 @@ namespace ReSharperPlugin.SpecflowRiderPlugin.SyntaxHighlighting
         public const string REGEXP_PARAMETER = "ReSharper SpecFlow Step Parameter";
         public const string OUTLINE_PARAMETER_SUBSTITUTION = "ReSharper SpecFlow Scenario Outline Parameter";
         // ReSharper restore InconsistentNaming
-    }
-
-    public class SpecFlowHighlighterNamesProvider : PrefixBasedSettingsNamesProvider
-    {
-        public SpecFlowHighlighterNamesProvider()
-            : base("ReSharper SpecFlow", "ReSharper.SpecFlow")
-        {
-        }
     }
 }

@@ -16,11 +16,11 @@ namespace ReSharperPlugin.SpecflowRiderPlugin.Psi
 
         public override ILexerFactory GetMixedLexerFactory(ISolution solution, IBuffer buffer, IPsiSourceFile sourceFile = null)
         {
-            return GherkinLanguage.Instance.LanguageService().GetPrimaryLexerFactory();
+            return GherkinLanguage.Instance.LanguageService()?.GetPrimaryLexerFactory();
         }
         
         protected override PsiLanguageType PsiLanguageType => GherkinLanguage.Instance.NotNull();
-        
-        public override IconId Icon => ReSharperPluginSpecflowRiderPluginThemedIcons.Gherkin.Id;
+
+        public override IconId Icon => UnnamedThemedIcons.Gherkin.Id;
     }
 }
