@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using JetBrains.Annotations;
+using JetBrains.ReSharper.Psi.Tree;
 
 namespace ReSharperPlugin.SpecflowRiderPlugin.Psi
 {
@@ -17,6 +19,11 @@ namespace ReSharperPlugin.SpecflowRiderPlugin.Psi
         public GherkinScenario GetScenario(string scenarioText)
         {
             return this.FindChild<GherkinScenario>(o => o.GetScenarioText() == scenarioText);
+        }
+
+        public IEnumerable<GherkinScenario> GetScenarios()
+        {
+            return this.Children<GherkinScenario>();
         }
     }
 }
