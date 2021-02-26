@@ -24,6 +24,8 @@ namespace ReSharperPlugin.SpecflowRiderPlugin.Psi
         public static readonly GherkinTokenType PYSTRING_TEXT = new GherkinTokenType("PYSTRING_TEXT", 1017);
         public static readonly GherkinTokenType PIPE = new GherkinTokenType("PIPE", 1018);
         public static readonly GherkinTokenType TABLE_CELL = new GherkinTokenType("TABLE_CELL", 1019);
+        public static readonly GherkinTokenType STEP_PARAMETER_QUOTATION_MARKER = new GherkinTokenType("STEP_PARAMETER_QUOTATION_MARKER", 1020);
+        public static readonly GherkinTokenType STEP_PARAMETER_APOSTROPHE_MARKER = new GherkinTokenType("STEP_PARAMETER_APOSTROPHE_MARKER", 1021);
 
         public static readonly NodeTypeSet KEYWORDS = new NodeTypeSet(FEATURE_KEYWORD, RULE_KEYWORD, EXAMPLE_KEYWORD,
                                                                       BACKGROUND_KEYWORD, SCENARIO_KEYWORD, SCENARIO_OUTLINE_KEYWORD,

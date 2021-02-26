@@ -31,6 +31,12 @@ namespace ReSharperPlugin.SpecflowRiderPlugin.SyntaxHighlighting.Rider
             
             if (tokenType == GherkinTokenTypes.STEP_PARAMETER_TEXT)
                 return GherkinHighlightingAttributeIds.OUTLINE_PARAMETER_SUBSTITUTION;
+            
+            if (tokenType == GherkinTokenTypes.STEP_PARAMETER_QUOTATION_MARKER)
+                return GherkinHighlightingAttributeIds.OUTLINE_PARAMETER_SUBSTITUTION;
+            
+            if (tokenType == GherkinTokenTypes.STEP_PARAMETER_APOSTROPHE_MARKER)
+                return GherkinHighlightingAttributeIds.OUTLINE_PARAMETER_SUBSTITUTION;
 
             if (tokenType == GherkinTokenTypes.TEXT)
                 return GherkinHighlightingAttributeIds.TEXT;

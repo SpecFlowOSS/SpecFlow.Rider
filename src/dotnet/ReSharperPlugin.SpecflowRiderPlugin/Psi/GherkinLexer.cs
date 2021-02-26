@@ -89,7 +89,7 @@ namespace ReSharperPlugin.SpecflowRiderPlugin.Psi
                 }
                 else
                 {
-                    AdvanceToParameterEnd(PYSTRING_MARKER);
+                    AdvanceToParameterEnd(PYSTRING_MARKER, new List<char>{'>'});
                     TokenType = GherkinTokenTypes.STEP_PARAMETER_TEXT;
                 }
             }
@@ -105,7 +105,7 @@ namespace ReSharperPlugin.SpecflowRiderPlugin.Psi
                 {
                     if (Buffer[_currentPosition] == '<')
                     {
-                        if (IsStepParameter(PYSTRING_MARKER))
+                        if (IsStepParameterInMultilineString(PYSTRING_MARKER))
                         {
                             _currentPosition++;
                             _myState = STATE_PARAMETER_INSIDE_PYSTRING;
@@ -235,27 +235,50 @@ namespace ReSharperPlugin.SpecflowRiderPlugin.Psi
 
                 if (_myState == STATE_PARAMETER_INSIDE_STEP)
                 {
-                    if (c == '>')
+                    switch (c)
                     {
-                        _myState = STATE_AFTER_KEYWORD_WITH_PARAMETER;
-                        _currentPosition++;
-                        TokenType = GherkinTokenTypes.STEP_PARAMETER_BRACE;
-                    }
-                    else
-                    {
-                        AdvanceToParameterEnd("\n");
-                        TokenType = GherkinTokenTypes.STEP_PARAMETER_TEXT;
+                        case '>':
+                            _myState = STATE_AFTER_KEYWORD_WITH_PARAMETER;
+                            _currentPosition++;
+                            TokenType = GherkinTokenTypes.STEP_PARAMETER_BRACE;
+                            break;
+                        case '"':
+                            _myState = STATE_AFTER_KEYWORD_WITH_PARAMETER;
+                            _currentPosition++;
+                            TokenType = GherkinTokenTypes.STEP_PARAMETER_QUOTATION_MARKER;
+                            break;
+                        case '\'':
+                            _myState = STATE_AFTER_KEYWORD_WITH_PARAMETER;
+                            _currentPosition++;
+                            TokenType = GherkinTokenTypes.STEP_PARAMETER_APOSTROPHE_MARKER;
+                            break;
+                        default:
+                            AdvanceToParameterEnd("\n", new List<char>{'>','"','\''});
+                            TokenType = GherkinTokenTypes.STEP_PARAMETER_TEXT;
+                            break;
                     }
 
                     return;
                 }
-                else if (_myState == STATE_AFTER_KEYWORD_WITH_PARAMETER)
+                if (_myState == STATE_AFTER_KEYWORD_WITH_PARAMETER)
                 {
                     if (_currentPosition < _myEndOffset && Buffer[_currentPosition] == '<' && IsStepParameter("\n"))
                     {
                         _myState = STATE_PARAMETER_INSIDE_STEP;
                         _currentPosition++;
                         TokenType = GherkinTokenTypes.STEP_PARAMETER_BRACE;
+                    }
+                    else if (_currentPosition < _myEndOffset && Buffer[_currentPosition] == '"' && IsStepParameter("\n"))
+                    {
+                        _myState = STATE_PARAMETER_INSIDE_STEP;
+                        _currentPosition++;
+                        TokenType = GherkinTokenTypes.STEP_PARAMETER_QUOTATION_MARKER;
+                    }
+                    else if (_currentPosition < _myEndOffset && Buffer[_currentPosition] == '\'' && IsStepParameter("\n"))
+                    {
+                        _myState = STATE_PARAMETER_INSIDE_STEP;
+                        _currentPosition++;
+                        TokenType = GherkinTokenTypes.STEP_PARAMETER_APOSTROPHE_MARKER;
                     }
                     else
                     {
@@ -297,10 +320,10 @@ namespace ReSharperPlugin.SpecflowRiderPlugin.Psi
             return !char.IsWhiteSpace(c) && c != '@';
         }
         
-        private void AdvanceToParameterEnd(string endSymbol) {
+        private void AdvanceToParameterEnd(string endSymbol, List<char> closingCharacters) {
             _currentPosition++;
             int mark = _currentPosition;
-            while (_currentPosition < _myEndOffset && !IsStringAtPosition(endSymbol) && Buffer[_currentPosition] != '>') {
+            while (_currentPosition < _myEndOffset && !IsStringAtPosition(endSymbol) && !closingCharacters.Contains(Buffer[_currentPosition])) {
                 _currentPosition++;
             }
 
@@ -332,7 +355,8 @@ namespace ReSharperPlugin.SpecflowRiderPlugin.Psi
         private void AdvanceToParameterOrSymbol(string s, uint parameterState, bool shouldReturnWhitespace) {
             int mark = _currentPosition;
 
-            while (_currentPosition < _myEndOffset && !IsStringAtPosition(s) && !IsStepParameter(s)) {
+            while (_currentPosition < _myEndOffset && !IsStringAtPosition(s) && (STATE_AFTER_KEYWORD_WITH_PARAMETER == parameterState ? !IsStepParameter(s) : !IsStepParameterInMultilineString(s)))
+            {
                 _currentPosition++;
             }
 
@@ -351,15 +375,45 @@ namespace ReSharperPlugin.SpecflowRiderPlugin.Psi
         private bool IsStepParameter(string currentElementTerminator) {
             int pos = _currentPosition;
 
-            if (Buffer[pos] == '<') {
-                while (pos < _myEndOffset && Buffer[pos] != '\n' && Buffer[pos] != '>' && !IsStringAtPosition(currentElementTerminator, pos)) {
-                    pos++;
+            switch (Buffer[pos])
+            {
+                case '<':
+                {
+                    return IsStepParameter(currentElementTerminator, pos, '>');
                 }
-
-                return pos < _myEndOffset && Buffer[pos] == '>';
+                case '"':
+                {
+                    return IsStepParameter(currentElementTerminator, pos, '"');
+                }
+                case '\'':
+                {
+                    return IsStepParameter(currentElementTerminator, pos, '\'');
+                }
+                default:
+                    return false;
             }
 
+        }
+        
+        private bool IsStepParameterInMultilineString(string currentElementTerminator)
+        {
+            int pos = _currentPosition;
+
+            if (Buffer[pos] == '<')
+                return IsStepParameter(currentElementTerminator, pos, '>');
             return false;
+
+        }
+
+        private bool IsStepParameter(string currentElementTerminator, int pos, char stepParameterMark)
+        {
+
+            while (pos < _myEndOffset && Buffer[pos] != '\n' && Buffer[pos] != stepParameterMark && !IsStringAtPosition(currentElementTerminator, pos))
+            {
+                pos++;
+            }
+
+            return pos < _myEndOffset && Buffer[pos] == stepParameterMark;
         }
 
 
