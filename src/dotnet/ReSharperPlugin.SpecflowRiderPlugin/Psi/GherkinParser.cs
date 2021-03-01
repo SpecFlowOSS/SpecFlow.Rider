@@ -183,6 +183,7 @@ namespace ReSharperPlugin.SpecflowRiderPlugin.Psi
             builder.AdvanceLexer();
             while (builder.GetTokenType() == GherkinTokenTypes.TEXT ||
                    builder.GetTokenType() == GherkinTokenTypes.STEP_PARAMETER_BRACE ||
+                   builder.GetTokenType() == GherkinTokenTypes.NUMBER ||
                    builder.GetTokenType() == GherkinTokenTypes.STEP_PARAMETER_QUOTATION_MARKER ||
                    builder.GetTokenType() == GherkinTokenTypes.STEP_PARAMETER_APOSTROPHE_MARKER ||
                    builder.GetTokenType() == GherkinTokenTypes.STEP_PARAMETER_TEXT ||

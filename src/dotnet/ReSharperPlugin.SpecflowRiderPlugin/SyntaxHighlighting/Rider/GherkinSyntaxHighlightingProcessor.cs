@@ -29,6 +29,9 @@ namespace ReSharperPlugin.SpecflowRiderPlugin.SyntaxHighlighting.Rider
             if (tokenType == GherkinTokenTypes.TAG)
                 return GherkinHighlightingAttributeIds.TAG;
             
+            if (tokenType == GherkinTokenTypes.NUMBER)
+                return GherkinHighlightingAttributeIds.OUTLINE_PARAMETER_SUBSTITUTION;
+            
             if (tokenType == GherkinTokenTypes.STEP_PARAMETER_TEXT)
                 return GherkinHighlightingAttributeIds.OUTLINE_PARAMETER_SUBSTITUTION;
             

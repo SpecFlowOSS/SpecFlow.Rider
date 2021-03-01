@@ -1,4 +1,5 @@
 using JetBrains.ReSharper.Psi.ExtensionsAPI.Tree;
+using JetBrains.ReSharper.Psi.Parsing;
 // ReSharper disable InconsistentNaming
 
 namespace ReSharperPlugin.SpecflowRiderPlugin.Psi
@@ -26,7 +27,8 @@ namespace ReSharperPlugin.SpecflowRiderPlugin.Psi
         public static readonly GherkinTokenType TABLE_CELL = new GherkinTokenType("TABLE_CELL", 1019);
         public static readonly GherkinTokenType STEP_PARAMETER_QUOTATION_MARKER = new GherkinTokenType("STEP_PARAMETER_QUOTATION_MARKER", 1020);
         public static readonly GherkinTokenType STEP_PARAMETER_APOSTROPHE_MARKER = new GherkinTokenType("STEP_PARAMETER_APOSTROPHE_MARKER", 1021);
-
+        public static readonly GherkinTokenType NUMBER = new GherkinTokenType("NUMBER",1022);
+        
         public static readonly NodeTypeSet KEYWORDS = new NodeTypeSet(FEATURE_KEYWORD, RULE_KEYWORD, EXAMPLE_KEYWORD,
                                                                       BACKGROUND_KEYWORD, SCENARIO_KEYWORD, SCENARIO_OUTLINE_KEYWORD,
                                                                       EXAMPLES_KEYWORD, EXAMPLES_KEYWORD,

@@ -253,8 +253,8 @@ namespace ReSharperPlugin.SpecflowRiderPlugin.Psi
                             TokenType = GherkinTokenTypes.STEP_PARAMETER_APOSTROPHE_MARKER;
                             break;
                         default:
-                            AdvanceToParameterEnd("\n", new List<char>{'>','"','\''});
-                            TokenType = GherkinTokenTypes.STEP_PARAMETER_TEXT;
+                                AdvanceToParameterEnd("\n", new List<char>{'>','"','\''});
+                                TokenType = GherkinTokenTypes.STEP_PARAMETER_TEXT;    
                             break;
                     }
 
@@ -280,6 +280,11 @@ namespace ReSharperPlugin.SpecflowRiderPlugin.Psi
                         _currentPosition++;
                         TokenType = GherkinTokenTypes.STEP_PARAMETER_APOSTROPHE_MARKER;
                     }
+                    else if (_currentPosition < _myEndOffset && char.IsNumber(Buffer[_currentPosition]))
+                    {
+                        TokenType = GherkinTokenTypes.NUMBER;
+                        _currentPosition++;
+                    }
                     else
                     {
                         TokenType = GherkinTokenTypes.TEXT;
@@ -293,7 +298,7 @@ namespace ReSharperPlugin.SpecflowRiderPlugin.Psi
                 AdvanceToEol();
             }
         }
-        
+
         private static string FetchLocationLanguage(string commentText)
         {
             return commentText.StartsWith("language:") ? commentText.Substring(9).Trim() : null;
@@ -319,7 +324,7 @@ namespace ReSharperPlugin.SpecflowRiderPlugin.Psi
         private static bool IsValidTagChar(char c) {
             return !char.IsWhiteSpace(c) && c != '@';
         }
-        
+
         private void AdvanceToParameterEnd(string endSymbol, List<char> closingCharacters) {
             _currentPosition++;
             int mark = _currentPosition;
@@ -351,11 +356,12 @@ namespace ReSharperPlugin.SpecflowRiderPlugin.Psi
             ReturnWhitespace(mark);
             _myState = STATE_DEFAULT;
         }
-
+        
         private void AdvanceToParameterOrSymbol(string s, uint parameterState, bool shouldReturnWhitespace) {
             int mark = _currentPosition;
 
-            while (_currentPosition < _myEndOffset && !IsStringAtPosition(s) && (STATE_AFTER_KEYWORD_WITH_PARAMETER == parameterState ? !IsStepParameter(s) : !IsStepParameterInMultilineString(s)))
+            while (_currentPosition < _myEndOffset && !IsStringAtPosition(s) &&
+                   (parameterState == STATE_AFTER_KEYWORD_WITH_PARAMETER ? !IsStepParameter(s) && !IsNumber() : !IsStepParameterInMultilineString(s)))
             {
                 _currentPosition++;
             }
@@ -371,7 +377,12 @@ namespace ReSharperPlugin.SpecflowRiderPlugin.Psi
                 ReturnWhitespace(mark);
             }
         }
-        
+
+        private bool IsNumber()
+        {
+            return int.TryParse(Buffer[_currentPosition].ToString(), out _);
+        }
+
         private bool IsStepParameter(string currentElementTerminator) {
             int pos = _currentPosition;
 
