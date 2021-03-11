@@ -1,7 +1,7 @@
 <Project>
   <PropertyGroup>
-    <SdkVersion>2020.3.2</SdkVersion>
-    
+    <SdkVersion>2021.1.0-eap06</SdkVersion>
+
     <Title>SpecFlow Support</Title>
     <Description>Description</Description>
   
