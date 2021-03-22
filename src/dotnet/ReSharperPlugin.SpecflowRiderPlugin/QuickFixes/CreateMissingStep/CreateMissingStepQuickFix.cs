@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using JetBrains.IDE.UI;
 using JetBrains.ReSharper.Feature.Services.Intentions;
 using JetBrains.ReSharper.Feature.Services.QuickFixes;
 using JetBrains.ReSharper.Feature.Services.Resources;
@@ -22,7 +23,11 @@ namespace ReSharperPlugin.SpecflowRiderPlugin.QuickFixes.CreateMissingStep
         {
             return new List<IntentionAction>
             {
-                new IntentionAction(new CreateSpecflowStepFromUsageAction(_error.GherkinStep.GetStepReference(), _error.GherkinStep.GetPsiServices().GetComponent<IStepDefinitionBuilder>()), BulbThemedIcons.RedBulb.Id, IntentionsAnchors.QuickFixesAnchor)
+                new IntentionAction(new CreateSpecflowStepFromUsageAction(
+                    _error.GherkinStep.GetStepReference(),
+                    _error.GherkinStep.GetPsiServices().GetComponent<IDialogHost>(),
+                    _error.GherkinStep.GetPsiServices().GetComponent<IStepDefinitionBuilder>()
+                ), BulbThemedIcons.RedBulb.Id, IntentionsAnchors.QuickFixesAnchor)
             };
         }
 

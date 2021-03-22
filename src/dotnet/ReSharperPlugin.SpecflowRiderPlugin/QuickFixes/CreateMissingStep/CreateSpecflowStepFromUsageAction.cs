@@ -1,13 +1,21 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Application.UI.Controls;
 using JetBrains.Application.UI.Controls.JetPopupMenu;
+using JetBrains.Application.UI.Icons.CommonThemedIcons;
 using JetBrains.Collections;
+using JetBrains.IDE.UI;
+using JetBrains.IDE.UI.Extensions;
+using JetBrains.IDE.UI.Extensions.Properties;
+using JetBrains.Lifetimes;
 using JetBrains.Metadata.Reader.API;
 using JetBrains.Metadata.Reader.Impl;
 using JetBrains.ProjectModel;
 using JetBrains.ReSharper.Feature.Services.Bulbs;
 using JetBrains.ReSharper.Feature.Services.Navigation.NavigationExtensions;
+using JetBrains.ReSharper.Features.Internal.Annotator;
+using JetBrains.ReSharper.Features.Navigation.Features.CommandPrompt;
 using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.Psi.CSharp;
 using JetBrains.ReSharper.Psi.CSharp.Resources;
@@ -17,6 +25,7 @@ using JetBrains.ReSharper.Psi.Naming.Impl;
 using JetBrains.ReSharper.Psi.Naming.Settings;
 using JetBrains.ReSharper.Psi.Resources;
 using JetBrains.ReSharper.Psi.Transactions;
+using JetBrains.Rider.Model.UIAutomation;
 using JetBrains.TextControl;
 using JetBrains.UI.RichText;
 using JetBrains.Util;
@@ -33,14 +42,17 @@ namespace ReSharperPlugin.SpecflowRiderPlugin.QuickFixes.CreateMissingStep
     {
         public string Text { get; } = "Create step";
         private readonly SpecflowStepDeclarationReference _reference;
+        private readonly IDialogHost _dialogHost;
         private readonly IStepDefinitionBuilder _stepDefinitionBuilder;
 
         public CreateSpecflowStepFromUsageAction(
             SpecflowStepDeclarationReference reference,
+            IDialogHost dialogHost,
             IStepDefinitionBuilder stepDefinitionBuilder
         )
         {
             _reference = reference;
+            _dialogHost = dialogHost;
             _stepDefinitionBuilder = stepDefinitionBuilder;
         }
 
@@ -58,9 +70,20 @@ namespace ReSharperPlugin.SpecflowRiderPlugin.QuickFixes.CreateMissingStep
                     foreach (var availableBindingClass in availableSteps)
                         filesPerClasses.Add(availableBindingClass.ClassClrName, availableBindingClass);
 
+                    menu.ItemKeys.Add(new Action("Create new binding class", Action.ActionType.CreateBindingClass));
                     menu.ItemKeys.AddRange(filesPerClasses);
+
                     menu.DescribeItem.Advise(lifetime, e =>
                                                        {
+                                                           if (e.Key is Action action)
+                                                           {
+                                                               e.Descriptor.Icon = CommonThemedIcons.Create.Id;
+                                                               e.Descriptor.Style = MenuItemStyle.Enabled;
+
+                                                               e.Descriptor.Text = new RichText(action.Text, DeclaredElementPresenterTextStyles.ParameterInfo.GetStyle(DeclaredElementPresentationPartKind.Type));
+                                                               return;
+                                                           }
+
                                                            var (classClrFullName, _) = (KeyValuePair<string, ISet<SpecflowStepsDefinitionsCache.AvailableBindingClass>>) e.Key;
 
                                                            e.Descriptor.Icon = PsiSymbolsThemedIcons.Class.Id;
@@ -72,11 +95,38 @@ namespace ReSharperPlugin.SpecflowRiderPlugin.QuickFixes.CreateMissingStep
                                                        });
                     menu.ItemClicked.Advise(lifetime, key =>
                                                       {
+                                                          if (key is Action action)
+                                                          {
+                                                              var lifetimeDefinition = new LifetimeDefinition();
+                                                              var panel = CreateControl(lifetimeDefinition.Lifetime);
+                                                              var dialog = panel.InDialog(
+                                                                      "Create new binding class",
+                                                                      "",
+                                                                      DialogModality.MODAL,
+                                                                      BeControlSizes.GetSize(BeControlSizeType.SMALL, BeControlSizeType.SMALL))
+                                                                  .WithOkButton(
+                                                                      lifetime,
+                                                                      () => Console.WriteLine(panel.GetBeControlById<BeTextBox>("className")),
+                                                                      disableWhenInvalid: false)
+                                                                  .WithCancelButton(lifetimeDefinition.Lifetime);
+                                                              _dialogHost.Show(dialog, onDialogDispose:() => {
+                                                                  lifetimeDefinition.Terminate();
+                                                              });
+                                                              return;
+                                                          }
                                                           var (_, availableBindingClasses) = (KeyValuePair<string, ISet<SpecflowStepsDefinitionsCache.AvailableBindingClass>>) key;
                                                           OpenFileSelectionModal(jetPopupMenus, textControl, availableBindingClasses, _reference.GetStepKind(), _reference.GetStepText());
                                                       });
                     menu.PopupWindowContextSource = textControl.PopupWindowContextFactory.ForCaret();
                 });
+        }
+
+        private BeControl CreateControl(Lifetime lifetime)
+        {
+            var grid = BeControls.GetGrid();
+            grid.AddElement("Class name".GetBeLabel());
+            grid.AddElement(BeControls.GetTextBox(lifetime, id: "className"));
+            return grid;
         }
 
         private void OpenFileSelectionModal(JetPopupMenus jetPopupMenus, ITextControl textControl, ISet<SpecflowStepsDefinitionsCache.AvailableBindingClass> availableBindingClasses, GherkinStepKind getStepKind, string getStepText)
@@ -143,6 +193,22 @@ namespace ReSharperPlugin.SpecflowRiderPlugin.QuickFixes.CreateMissingStep
                     invocationExpression.NavigateToNode(true);
                 else
                     insertedDeclaration.NavigateToNode(true);
+            }
+        }
+
+        private class Action
+        {
+            public enum ActionType
+            {
+                CreateBindingClass
+            }
+            public string Text { get; }
+            public ActionType Type { get; }
+
+            public Action(string text, ActionType type)
+            {
+                Text = text;
+                Type = type;
             }
         }
     }
