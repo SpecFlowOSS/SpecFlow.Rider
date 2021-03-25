@@ -1,7 +1,7 @@
 ﻿<Project>
   <PropertyGroup>
     <LanguageTargets>$(MSBuildToolsPath)\Microsoft.CSharp.targets</LanguageTargets>
-    <LangVersion>9</LangVersion>
+    <LangVersion>8</LangVersion>
   </PropertyGroup>
   <Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk" />
   <PropertyGroup>
@@ -15,6 +15,7 @@
     <PackageReference Include="MSBuild.AdditionalTasks" Version="0.1.36" />
     <PackageReference Include="JetBrains.Rider.SDK" Version="$(SdkVersion)" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="2.2.0" />
+    <PackageReference Include="PCRE.NET" Version="0.15.0" />
   </ItemGroup>
   <ItemGroup Label="C#">
     <ErrorsGen Include="Daemon\Errors\CSharpErrors.xml">
@@ -47,9 +48,6 @@
   <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk" />
   <ItemGroup>
     <EmbeddedResource Include="Psi/i18n.json" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\libs\Regex\Regex.csproj" />
   </ItemGroup>
 
   <PropertyGroup Condition="'$(AppInsightsInstrumentationKey)' == ''">

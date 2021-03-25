@@ -17,7 +17,7 @@ namespace ReSharperPlugin.SpecflowRiderPlugin.Debugger
     {
         public List<IBreakpoint> GetBreakpointVariants(IProjectFile file, int line, ISolution solution)
         {
-            if (file.GetPrimaryPsiFile() is not GherkinFile gherkinFile)
+            if (!(file.GetPrimaryPsiFile() is GherkinFile gherkinFile))
                 return null;
             var psiSourceFile = solution.PsiModules().GetPsiSourceFilesFor(file).FirstOrDefault();
             if (psiSourceFile == null)

@@ -155,8 +155,8 @@ prepareSandbox {
     def dllFiles = [
             "$outputFolder/${DotnetPluginId}.dll",
             "$outputFolder/${DotnetPluginId}.pdb",
-            "$outputFolder/Regex.dll",
-            "$outputFolder/Regex.pdb",
+            "$outputFolder/PCRE.NET.dll",
+            "$outputFolder/PCRE.NET.Native.x64.dll",
             // TODO: add additional assemblies
     ]
 
@@ -170,6 +170,14 @@ prepareSandbox {
             def file = file(f)
             if (!file.exists()) throw new RuntimeException("File ${file} does not exist")
         })
+        copy {
+            from('${intellij.pluginName}/dotnet')
+            into('${intellij.pluginName}/dotnet')
+            include '*.x64.dll'
+            rename { String filename ->
+                filename.replace(".x64.dll", ".dll")
+            }
+        }
     }
 }
 

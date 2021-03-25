@@ -3,7 +3,7 @@ using System.Linq;
 using System.Text;
 using JetBrains.ReSharper.Psi;
 using JetBrains.Util;
-using RE;
+using PCRE;
 using ReSharperPlugin.SpecflowRiderPlugin.Caching.StepsDefinitions;
 
 namespace ReSharperPlugin.SpecflowRiderPlugin.CompletionProviders
@@ -28,8 +28,8 @@ namespace ReSharperPlugin.SpecflowRiderPlugin.CompletionProviders
             var matchedText = string.Empty;
             if (partialStepText.Length > 0)
             {
-                var result = stepDefinitionInfo.RegexForPartialMatch?.Match(ParseContext.Create(partialStepText), successOnAnyState: true);
-                if (result == null || result.Position != 0)
+                var result = stepDefinitionInfo.RegexForPartialMatch?.Match(partialStepText, PcreMatchOptions.PartialSoft);
+                if (result == null || !result.IsPartialMatch)
                     return EmptyList<string>.Enumerable;
                 matchedText = result.Value;
             }

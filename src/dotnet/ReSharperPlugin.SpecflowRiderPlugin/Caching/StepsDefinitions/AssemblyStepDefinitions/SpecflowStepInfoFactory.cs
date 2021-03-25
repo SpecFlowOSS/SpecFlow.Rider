@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
 using JetBrains.ReSharper.Psi;
-using RE;
+using PCRE;
 using ReSharperPlugin.SpecflowRiderPlugin.CompletionProviders;
 using ReSharperPlugin.SpecflowRiderPlugin.Psi;
 
@@ -26,10 +26,10 @@ namespace ReSharperPlugin.SpecflowRiderPlugin.Caching.StepsDefinitions.AssemblyS
 
         public SpecflowStepInfo Create(string classFullName, string methodName, GherkinStepKind stepKind, string pattern)
         {
-            CharFA<string> regexForPartialMatch;
+            PcreRegex regexForPartialMatch;
             try
             {
-                regexForPartialMatch = RegexExpression.Parse(pattern).ToFA<string>();
+                regexForPartialMatch = new PcreRegex(pattern, PcreOptions.Compiled);
             }
             catch (Exception)
             {
