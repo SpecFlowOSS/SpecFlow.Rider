@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+    <s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/QuickList/=B21E55C7EDBB6C448C4A6BEF43963231/@KeyIndexDefined">True</s:Boolean>
+    <s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/QuickList/=B21E55C7EDBB6C448C4A6BEF43963231/Entry/=75E7E09414B31D4FBA2F521D2B121A61/@KeyIndexDefined">True</s:Boolean>
+    <s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/QuickList/=B21E55C7EDBB6C448C4A6BEF43963231/Entry/=75E7E09414B31D4FBA2F521D2B121A61/EntryName/@EntryValue">&lt;No Name&gt;</s:String>
+    <s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/QuickList/=B21E55C7EDBB6C448C4A6BEF43963231/Entry/=75E7E09414B31D4FBA2F521D2B121A61/Position/@EntryValue">1</s:Int64>
+    <s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/QuickList/=B21E55C7EDBB6C448C4A6BEF43963231/Entry/=DA7592997D902244854B91BA0C2157E7/Position/@EntryValue">0</s:Int64>
+    <s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=75E7E09414B31D4FBA2F521D2B121A61/@KeyIndexDefined">True</s:Boolean>
+    <s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=75E7E09414B31D4FBA2F521D2B121A61/Applicability/=File/@EntryIndexedValue">True</s:Boolean>
+    <s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=75E7E09414B31D4FBA2F521D2B121A61/CustomProperties/=Extension/@EntryIndexedValue">feature</s:String>
+    <s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=75E7E09414B31D4FBA2F521D2B121A61/CustomProperties/=FileName/@EntryIndexedValue">Template</s:String>
+    <s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=75E7E09414B31D4FBA2F521D2B121A61/CustomProperties/=ValidateFileName/@EntryIndexedValue">False</s:String>
+    <s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=75E7E09414B31D4FBA2F521D2B121A61/Description/@EntryValue">Feature file</s:String>
+    <s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=75E7E09414B31D4FBA2F521D2B121A61/Reformat/@EntryValue">True</s:Boolean>
+    <s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=75E7E09414B31D4FBA2F521D2B121A61/Scope/=139FF4CE89E7094686FDA7BF5FFBBE92/@KeyIndexDefined">True</s:Boolean>
+    <s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=75E7E09414B31D4FBA2F521D2B121A61/Scope/=139FF4CE89E7094686FDA7BF5FFBBE92/Type/@EntryValue">Everywhere</s:String>
+    <s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=75E7E09414B31D4FBA2F521D2B121A61/Scope/=CFFCC3037E1B4A4A8D1B581A1F2661F1/@KeyIndexDefined">True</s:Boolean>
+    <s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=75E7E09414B31D4FBA2F521D2B121A61/Scope/=CFFCC3037E1B4A4A8D1B581A1F2661F1/Type/@EntryValue">FeatureFileTemplateSectionMarker</s:String>
+    <s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=75E7E09414B31D4FBA2F521D2B121A61/ShortenQualifiedReferences/@EntryValue">True</s:Boolean>
+    <s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=75E7E09414B31D4FBA2F521D2B121A61/Text/@EntryValue">Feature: Put feature-title here
+	Put feature description here
+
+Background:
+    Given Put your Background here
+
+Scenario: Put your Scenario here
+	When Put your Action here
+    Then Put your Condition here</s:String>
+    <s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=75E7E09414B31D4FBA2F521D2B121A61/UITag/@EntryValue">SpecFlow</s:String>
+</wpf:ResourceDictionary>

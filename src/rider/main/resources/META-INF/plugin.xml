@@ -28,6 +28,9 @@
     <lang.substitutor language="Gherkin" implementationClass="com.jetbrains.rider.plugins.specflowriderplugin.SpecflowLanguageSubstitutor" />
     <langCodeStyleSettingsProvider implementation="com.jetbrains.rider.plugins.specflowriderplugin.settings.GherkinStyleSettingsProvider"/>
 
+    <projectConfigurable parentId="FileTemplatesSettingsId" instance="com.jetbrains.rider.settings.templates.SpecFlowFileTemplatesOptionPage" groupWeight="-120" />
+
+
     <!--    <applicationConfigurable groupId="language" instance="com.jetbrains.rider.plugins.specflowriderplugin.SampleOptionsPage" id="SampleOptionsPage" />-->
   </extensions>
   

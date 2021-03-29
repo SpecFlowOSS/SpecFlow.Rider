@@ -48,6 +48,9 @@
   <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk" />
   <ItemGroup>
     <EmbeddedResource Include="Psi/i18n.json" />
+    <EmbeddedResource Include="Templates\FileTemplates.xml">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\libs\Regex\Regex.csproj" />
@@ -60,6 +63,7 @@
 
   <ItemGroup>
     <Compile Remove="Analytics\AppInsightsConfiguration.template.cs" />
+    <None Remove="Templates\FileTemplates.xml" />
     <None Include="Analytics\AppInsightsConfiguration.template.cs" />
   </ItemGroup>
   
