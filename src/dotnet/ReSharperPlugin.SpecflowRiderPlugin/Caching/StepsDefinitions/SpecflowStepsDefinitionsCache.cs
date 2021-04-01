@@ -36,6 +36,7 @@ namespace ReSharperPlugin.SpecflowRiderPlugin.Caching.StepsDefinitions
             : base(lifetime, locks, persistentIndexManager, new SpecflowStepDefinitionsEntriesMarshaller(), VersionInt)
         {
             _specflowStepInfoFactory = specflowStepInfoFactory;
+            ClearOnLoad = true;
         }
 
         public IEnumerable<SpecflowStepInfo> GetStepAccessibleForModule(IPsiModule module, GherkinStepKind stepKind)
