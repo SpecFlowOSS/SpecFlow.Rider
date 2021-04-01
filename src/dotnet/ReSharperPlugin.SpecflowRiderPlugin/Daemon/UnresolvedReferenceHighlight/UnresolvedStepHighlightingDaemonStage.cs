@@ -39,6 +39,9 @@ namespace ReSharperPlugin.SpecflowRiderPlugin.Daemon.UnresolvedReferenceHighligh
             if (processKind != DaemonProcessKind.SOLUTION_ANALYSIS && processKind != DaemonProcessKind.VISIBLE_DOCUMENT)
                 return Enumerable.Empty<IDaemonStageProcess>();
 
+            if (_specflowStepsDefinitionsCache.AllStepsPerFiles.Count == 0)
+                return Enumerable.Empty<IDaemonStageProcess>();
+            
             if (_specflowStepsDefinitionsCache.AllStepsPerFiles.ContainsKey(process.SourceFile))
                 return _specflowStepsUsagesCache.StepUsages.SelectMany(x => x.Value.Keys).Distinct()
                     .Select(x => x.GetPsiFile<GherkinLanguage>(x.Document.GetDocumentRange()))
