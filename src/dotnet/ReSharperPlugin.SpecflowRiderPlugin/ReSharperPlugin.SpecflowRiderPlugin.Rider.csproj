@@ -69,7 +69,7 @@
     <ReplaceTextInFileTask InputFile="Analytics\AppInsightsConfiguration.template.cs" OutputFile="Analytics\AppInsightsConfiguration.cs" TextToReplace="&lt;InstrumentationKeyGoesHere&gt;" TextToReplaceWith="$(AppInsightsInstrumentationKey)" />
     <ItemGroup>
       <Compile Include="Analytics\AppInsightsConfiguration.cs" />
-    </ItemGroup>       
+    </ItemGroup>
   </Target>
 
   <PropertyGroup>
