@@ -141,6 +141,10 @@ patchPluginXml {
     }.take(1).join('')
 }
 
+buildSearchableOptions {
+    enabled = false
+}
+
 prepareSandbox {
     dependsOn compileDotNet
 
