@@ -31,7 +31,7 @@ namespace ReSharperPlugin.SpecflowRiderPlugin.Psi
 
         public GherkinParser(ILexer lexer, IPsiSourceFile sourceFile, SpecflowSettingsProvider settingsProvider, GherkinKeywordProvider keywordProvider)
         {
-            var settings = settingsProvider.GetDefaultSettings();
+            var settings = settingsProvider.GetSettings(sourceFile.GetProject());
             _lang = settings.Language.NeutralFeature;
             _lexer = lexer;
             _sourceFile = sourceFile;
