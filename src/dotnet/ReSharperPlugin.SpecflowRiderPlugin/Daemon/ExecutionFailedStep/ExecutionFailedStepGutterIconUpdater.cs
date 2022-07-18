@@ -52,7 +52,7 @@ namespace ReSharperPlugin.SpecflowRiderPlugin.Daemon.ExecutionFailedStep
             _failedStepCache = failedStepCache;
             _daemon = daemon;
             _updatedUnitTests = new Dictionary<IUnitTestElement, (IUnitTestSession session, UnitTestResult result)>(UnitTestElement.Comparer.ById); // FIXME: or ByNaturalId ?
-            _myResultUpdated = shellLocks.NotNull("shellLocks != null")
+            _myResultUpdated = shellLocks.NotNull()
                 .CreateGroupingEvent(lifetime, nameof(ExecutionFailedStepGutterIconUpdater) + "::ResultUpdated", 500.Milliseconds(), OnProcessUpdated);
             _unitTestResultManager = resultManager;
             UT.Events.Result.Updated.Subscribe(lifetime, OnUnitTestResultUpdated);
@@ -68,10 +68,9 @@ namespace ReSharperPlugin.SpecflowRiderPlugin.Daemon.ExecutionFailedStep
             }
             using (_myLogger.UsingLogBracket(LoggingLevel.TRACE, "Updating gutter mark icons for {0} elements", set.Count))
             {
-                HashSet<IPsiSourceFile> updatedFiles;
                 using (ReadLockCookie.Create())
                 {
-                    updatedFiles = UpdateIconsInActiveDocuments(set);
+                    var updatedFiles = UpdateIconsInActiveDocuments(set);
                     foreach (var psiSourceFile in updatedFiles)
                         _daemon.ForceReHighlight(psiSourceFile.Document);
                 }
