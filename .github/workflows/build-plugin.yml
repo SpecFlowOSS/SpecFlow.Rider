@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     environment: buildPlugin
     
@@ -40,11 +40,10 @@ jobs:
         set_check_status_from_test_outcome: true
         project_path: src/dotnet/ReSharperPlugin.SpecflowRiderPlugin.Tests/ReSharperPlugin.SpecflowRiderPlugin.Tests.csproj
         github_token: ${{ secrets.GITHUB_TOKEN }}
-    - name: Unpack Distribution
-      shell: pwsh
-      run: scripts/Unpack-Distribution.ps1
+    - name: Prevent githubs matrjoschka effect
+      run: unzip output/specflowriderplugin-*.zip -d "./artifactz/"
     - name: Upload artifact
       uses: actions/upload-artifact@v1.0.0
       with:
         name: SpecFlowPlugin
-        path: build/distributions/unpacked
+        path: artifactz
