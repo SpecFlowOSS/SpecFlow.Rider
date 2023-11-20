@@ -1,4 +1,4 @@
-using TechTalk.SpecFlow;
+/*using TechTalk.SpecFlow;
 
 namespace ReSharperPlugin.SpecflowRiderPlugin.Tests.Utils.Steps
 {
@@ -11,4 +11,4 @@ namespace ReSharperPlugin.SpecflowRiderPlugin.Tests.Utils.Steps
         {
         }
     }
-}
+}*/
