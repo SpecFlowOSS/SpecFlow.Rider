@@ -10,6 +10,7 @@ using JetBrains.ReSharper.UnitTestFramework.Exploration;
 using JetBrains.ReSharper.UnitTestFramework.Exploration.Daemon;
 using JetBrains.ReSharper.UnitTestFramework.Persistence;
 using JetBrains.ReSharper.UnitTestProvider.nUnit.v30;
+using JetBrains.Util;
 using ReSharperPlugin.SpecflowRiderPlugin.Psi;
 using TechTalk.SpecFlow.Tracing;
 
@@ -19,15 +20,18 @@ namespace ReSharperPlugin.SpecflowRiderPlugin.UnitTestExplorers
     internal class SpecflowTestExplorer : IUnitTestExplorerFromFile
     {
         private readonly IUnitTestElementRepository _unitTestElementRepository;
+        private readonly ILogger _logger;
         public IUnitTestProvider Provider { get; }
 
         public SpecflowTestExplorer(
             SpecflowUnitTestProvider unitTestProvider,
-            IUnitTestElementRepository unitTestElementRepository
+            IUnitTestElementRepository unitTestElementRepository,
+            ILogger logger
         )
         {
             Provider = unitTestProvider;
             _unitTestElementRepository = unitTestElementRepository;
+            _logger = logger;
         }
 
         public void ProcessFile(
@@ -46,7 +50,7 @@ namespace ReSharperPlugin.SpecflowRiderPlugin.UnitTestExplorers
             if (projectFile == null)
                 return;
 
-            var featureTests = _unitTestElementRepository.GetRelatedFeatureTests(gherkinFile);
+            var featureTests = _unitTestElementRepository.GetRelatedFeatureTests(gherkinFile, _logger);
             if (featureTests == null)
                 return;
 
